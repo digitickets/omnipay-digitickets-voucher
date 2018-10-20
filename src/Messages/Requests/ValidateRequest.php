@@ -3,52 +3,26 @@
 namespace DigiTickets\DigiTicketsVoucher\Messages\Requests;
 
 use DigiTickets\DigiTicketsVoucher\Messages\Responses\ValidateResponse;
+use DigiTickets\DigiTicketsVoucher\Messages\ValidateMessage;
 use Omnipay\Common\Message\AbstractRequest;
 
-class ValidateRequest extends AbstractRequest
+class ValidateRequest extends AbstractVoucherRequest
 {
-    public function getVoucherCode()
+    /**
+     * @return AbstractMessage
+     */
+    protected function buildMessage()
     {
-        return $this->getParameter('voucherCode');
-    }
-
-    public function setVoucherCode($voucherCode)
-    {
-        return $this->setParameter('voucherCode', $voucherCode);
+        return new ValidateMessage($this->getVoucherCode());
     }
 
     /**
-     * @return mixed
+     * @param RequestInterface $request
+     * @param mixed $response
+     * @return AbstractResponse
      */
-    public function getData()
+    protected function buildResponse($request, $response)
     {
-error_log('This would get the data');
+        return new ValidateResponse($request, $response);
     }
-
-    /**
-     * @param mixed $data
-     * @return AbstractRemoteResponse
-     */
-    public function sendData($data)
-    {
-error_log('sendData: This would send the data (to us!)');
-        return new ValidateResponse($this, null);
-    }
-//    /**
-//     * @return AbstractMessage
-//     */
-//    protected function buildMessage()
-//    {
-//        return new ValidateMessage($this->getVoucherCode());
-//    }
-//
-//    /**
-//     * @param RequestInterface $request
-//     * @param mixed $response
-//     * @return AbstractResponse
-//     */
-//    protected function buildResponse($request, $response)
-//    {
-//        return new ValidateResponse($request, $response);
-//    }
 }
