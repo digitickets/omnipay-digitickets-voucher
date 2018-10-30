@@ -19,6 +19,26 @@ abstract class AbstractVoucherRequest extends AbstractRequest
      */
     abstract protected function buildResponse($request, $response);
 
+    public function setGateway($value)
+    {
+        $this->setParameter('gateway', $value);
+    }
+
+    public function getGateway()
+    {
+        return $this->getParameter('gateway');
+    }
+
+    public function setVirtualApi($value)
+    {
+        $this->setParameter('virtualApi', $value);
+    }
+
+    public function getVirtualApi()
+    {
+        return $this->getParameter('virtualApi');
+    }
+
     public function getVoucherCode()
     {
         return $this->getParameter('voucherCode');
@@ -45,9 +65,17 @@ error_log('AbstractVoucherRequest::getData(): This would get the data. This woul
     public function sendData($data)
     {
 error_log('AbstractVoucherRequest::sendData(): This would send the data (to us!)');
-        $listener = $this->getListener();
-        if ($listener && method_exists($listener, 'sendRequest')) {
-            $response = $listener->sendRequest($data);
+error_log('The data is: '.var_export($data, true));
+        $virtualApi = $this->getVirtualApi();
+        if ($virtualApi) {
+            $response = $virtualApi->sendRequest($data);
+error_log('Got the response; sending it to the listeners');
+            // Send all the information to any listeners.
+            foreach ($this->getGateway()->getListeners() as $listener) {
+error_log('Next listener');
+                $listener->update('requestSend', $data);
+            }
+
         } else {
             // Error @TODO: Build an appropriate response
         }

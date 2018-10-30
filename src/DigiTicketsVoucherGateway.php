@@ -2,6 +2,7 @@
 
 namespace DigiTickets\DigiTicketsVoucher;
 
+use DigiTickets\DigiTicketsVoucher\AbstractVoucher\AbstractVoucherGateway;
 use DigiTickets\DigiTicketsVoucher\Messages\Requests\AuthorizeRequest;
 use DigiTickets\DigiTicketsVoucher\Messages\Requests\PurchaseRequest;
 use DigiTickets\DigiTicketsVoucher\Messages\Requests\RedeemRequest;
@@ -10,7 +11,7 @@ use DigiTickets\DigiTicketsVoucher\Messages\Requests\UnredeemRequest;
 use DigiTickets\DigiTicketsVoucher\Messages\Requests\ValidateRequest;
 use Omnipay\Common\AbstractGateway;
 
-class DigiTicketsVoucherGateway extends AbstractGateway
+class DigiTicketsVoucherGateway extends AbstractVoucherGateway
 {
     public function getName()
     {
@@ -38,6 +39,7 @@ class DigiTicketsVoucherGateway extends AbstractGateway
     }
 
     // These are the methods that the DT voucher interface demand. @TODO: That interface needs to be built.
+    // @TODO: Could we put these methods in the abstract voucher gateway class?
     /**
      * @param array $parameters
      * @return AbstractRequest
@@ -46,6 +48,7 @@ class DigiTicketsVoucherGateway extends AbstractGateway
     {
 error_log('This is validate');
 error_log('Class name is: '.ValidateRequest::class);
+        $parameters['gateway'] = $this;
         return $this->createRequest(ValidateRequest::class, $parameters);
     }
 
@@ -55,6 +58,7 @@ error_log('Class name is: '.ValidateRequest::class);
      */
     public function redeem(array $parameters = array())
     {
+        $parameters['gateway'] = $this;
         return $this->createRequest(RedeemRequest::class, $parameters);
     }
 
@@ -64,6 +68,7 @@ error_log('Class name is: '.ValidateRequest::class);
      */
     public function unredeem(array $parameters = array())
     {
+        $parameters['gateway'] = $this;
         return $this->createRequest(UnredeemRequest::class, $parameters);
     }
 }
