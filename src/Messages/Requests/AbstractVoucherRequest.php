@@ -68,7 +68,8 @@ error_log('AbstractVoucherRequest::sendData(): This would send the data (to us!)
 error_log('The data is: '.var_export($data, true));
         $virtualApi = $this->getVirtualApi();
         if ($virtualApi) {
-            $response = $virtualApi->sendRequest($data);
+            $response = json_decode($virtualApi->sendRequest($data), true);
+error_log('$response is: '.var_export($response, true));
 error_log('Got the response; sending it to the listeners');
             // Send all the information to any listeners.
             foreach ($this->getGateway()->getListeners() as $listener) {

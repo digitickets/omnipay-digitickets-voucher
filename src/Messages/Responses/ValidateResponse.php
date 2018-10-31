@@ -6,6 +6,7 @@ use DigiTickets\DigiTicketsVoucher\Messages\Interfaces\ValidateResponseInterface
 
 class ValidateResponse extends AbstractResponse implements ValidateResponseInterface
 {
+    // @TODO: Do I need these two methods?
     public function success()
     {
         // TODO: Implement success() method.

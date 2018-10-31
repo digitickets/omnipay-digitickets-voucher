@@ -12,9 +12,23 @@ abstract class AbstractResponse implements ResponseInterface
      */
     protected $request;
 
-    public function __construct(RequestInterface $request, $tmp)
+    /**
+     * @var bool
+     */
+    protected $successful = false;
+
+    /**
+     * @var string|null
+     */
+    protected $errorMessage;
+
+    public function __construct(RequestInterface $request, $response)
     {
         $this->request = $request;
+
+error_log('AbstractResponse: $response: '.var_export($response, true));
+        $this->successful = isset($response['redeemable']) && $response['redeemable'] === true;
+        $this->errorMessage = isset($response['reason']) ? $response['reason'] : null;
     }
 
     /**
@@ -39,7 +53,7 @@ abstract class AbstractResponse implements ResponseInterface
 
     public function isSuccessful()
     {
-        // TODO: Implement isSuccessful() method.
+        return $this->successful;
     }
 
     public function isCancelled()
@@ -49,7 +63,8 @@ abstract class AbstractResponse implements ResponseInterface
 
     public function getMessage()
     {
-        // TODO: Implement getMessage() method.
+error_log('AbstractResponse getMessage() being called');
+        return $this->errorMessage;
     }
 
     public function getCode()

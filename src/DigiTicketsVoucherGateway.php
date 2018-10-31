@@ -38,8 +38,8 @@ class DigiTicketsVoucherGateway extends AbstractVoucherGateway
         return $this->createRequest(RefundRequest::class, $parameters);
     }
 
-    // These are the methods that the DT voucher interface demand. @TODO: That interface needs to be built.
-    // @TODO: Could we put these methods in the abstract voucher gateway class?
+    // These are the methods that the DT voucher interface demand.
+    // @TODO: Could we put these methods in the abstract voucher gateway class? Currently they are only abstract.
     /**
      * @param array $parameters
      * @return AbstractRequest

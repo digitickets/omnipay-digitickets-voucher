@@ -11,6 +11,12 @@ abstract class AbstractVoucherGateway extends AbstractGateway
      */
     private $listeners = [];
 
+    abstract public function validate(array $parameters = array());
+
+    abstract public function redeem(array $parameters = array());
+
+    abstract public function unredeem(array $parameters = array());
+
     public function register($listener)
     {
         $this->listeners[] = $listener;
