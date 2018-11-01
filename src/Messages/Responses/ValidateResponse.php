@@ -9,12 +9,12 @@ class ValidateResponse extends AbstractResponse implements ValidateResponseInter
     // @TODO: Do I need these two methods?
     public function success()
     {
-        // TODO: Implement success() method.
+        return $this->isSuccessful();
     }
 
     public function getErrorMessage()
     {
-        // TODO: Implement getErrorMessage() method.
+        return $this->getMessage();
     }
 
     public function getValue()

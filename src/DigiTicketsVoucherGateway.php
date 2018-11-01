@@ -71,4 +71,16 @@ error_log('[Driver] Class name is: '.ValidateRequest::class);
         $parameters['gateway'] = $this;
         return $this->createRequest(UnredeemRequest::class, $parameters);
     }
+
+    public function setVirtualApi($value)
+    {
+error_log('[Driver] setVirtualApi is being called');
+        $this->setParameter('virtualApi', $value);
+    }
+
+    public function getVirtualApi()
+    {
+error_log('[Driver] getVirtualApi is being called');
+        return $this->getParameter('virtualApi');
+    }
 }
