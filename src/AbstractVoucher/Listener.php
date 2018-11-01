@@ -1,6 +1,6 @@
 <?php
 
-namespace DigiTickets\DigiTicketsAbstractVoucher;
+namespace DigiTickets\DigiTicketsVoucher\AbstractVoucher;
 
 interface Listener
 {

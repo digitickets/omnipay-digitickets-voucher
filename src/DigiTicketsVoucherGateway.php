@@ -46,8 +46,8 @@ class DigiTicketsVoucherGateway extends AbstractVoucherGateway
      */
     public function validate(array $parameters = array())
     {
-error_log('This is validate');
-error_log('Class name is: '.ValidateRequest::class);
+error_log('[Driver] This is validate');
+error_log('[Driver] Class name is: '.ValidateRequest::class);
         $parameters['gateway'] = $this;
         return $this->createRequest(ValidateRequest::class, $parameters);
     }

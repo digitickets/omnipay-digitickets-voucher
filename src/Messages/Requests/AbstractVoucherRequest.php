@@ -54,7 +54,7 @@ abstract class AbstractVoucherRequest extends AbstractRequest
      */
     public function getData()
     {
-error_log('AbstractVoucherRequest::getData(): This would get the data. This would validate the voucher code in the appropriate client');
+error_log('[Driver] AbstractVoucherRequest::getData(): This would get the data. This would validate the voucher code in the appropriate client');
         return $this->buildMessage();
     }
 
@@ -64,17 +64,17 @@ error_log('AbstractVoucherRequest::getData(): This would get the data. This woul
      */
     public function sendData($data)
     {
-error_log('AbstractVoucherRequest::sendData(): This would send the data (to us!)');
-error_log('The data is: '.var_export($data, true));
+error_log('[Driver] AbstractVoucherRequest::sendData(): This would send the data (to us!)');
+error_log('[Driver] The data is: '.var_export($data, true));
         $virtualApi = $this->getVirtualApi();
         if ($virtualApi) {
             $response = json_decode($virtualApi->sendRequest($data), true);
-error_log('$response is: '.var_export($response, true));
-error_log('Got the response; sending it to the listeners');
+error_log('[Driver] $response is: '.var_export($response, true));
+error_log('[Driver] Got the response; sending it to the listeners');
             // Send all the information to any listeners.
             foreach ($this->getGateway()->getListeners() as $listener) {
-error_log('Next listener');
-                $listener->update('requestSend', $data);
+error_log('[Driver] Next listener');
+                $listener->update('requestSend', $response);
             }
 
         } else {

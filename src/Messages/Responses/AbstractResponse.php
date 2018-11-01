@@ -26,7 +26,7 @@ abstract class AbstractResponse implements ResponseInterface
     {
         $this->request = $request;
 
-error_log('AbstractResponse: $response: '.var_export($response, true));
+error_log('[Driver] AbstractResponse: $response: '.var_export($response, true));
         $this->successful = isset($response['redeemable']) && $response['redeemable'] === true;
         $this->errorMessage = isset($response['reason']) ? $response['reason'] : null;
     }
@@ -63,7 +63,7 @@ error_log('AbstractResponse: $response: '.var_export($response, true));
 
     public function getMessage()
     {
-error_log('AbstractResponse getMessage() being called');
+error_log('[Driver] AbstractResponse getMessage() being called');
         return $this->errorMessage;
     }
 
