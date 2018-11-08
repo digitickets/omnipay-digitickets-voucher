@@ -2,6 +2,7 @@
 
 namespace DigiTickets\DigiTicketsVoucher\Messages\Interfaces;
 
+// @TODO: This doesn't seem to be used
 interface AbstractResponseInterface
 {
     /**

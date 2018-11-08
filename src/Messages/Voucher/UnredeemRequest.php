@@ -1,10 +1,8 @@
 <?php
 
-namespace DigiTickets\DigiTicketsVoucher\Messages\Requests;
+namespace DigiTickets\DigiTicketsVoucher\Messages\Voucher;
 
-use DigiTickets\DigiTicketsVoucher\Messages\Responses\UnredeemResponse;
-use DigiTickets\DigiTicketsVoucher\Messages\UnredeemMessage;
-use Omnipay\Common\Message\AbstractRequest;
+use DigiTickets\DigiTicketsVoucher\Messages\Common\AbstractVoucherRequest;
 
 class UnredeemRequest extends AbstractVoucherRequest
 {
@@ -13,7 +11,7 @@ class UnredeemRequest extends AbstractVoucherRequest
      */
     protected function buildMessage()
     {
-        return new UnredeemMessage($this->getVoucherCode());
+        return new UnredeemMessage($this->getTransactionId(), $this->getVoucherCode(), $this->getAmount(), $this->getTransactionId(), $this->getOrderLineRef());
     }
 
     /**
@@ -24,5 +22,10 @@ class UnredeemRequest extends AbstractVoucherRequest
     protected function buildResponse($request, $response)
     {
         return new UnredeemResponse($request, $response);
+    }
+
+    protected function getListenerAction(): string
+    {
+        return 'UnredeemRequestSend';
     }
 }

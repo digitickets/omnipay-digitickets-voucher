@@ -3,13 +3,12 @@
 namespace DigiTickets\DigiTicketsVoucher;
 
 use DigiTickets\DigiTicketsVoucher\AbstractVoucher\AbstractVoucherGateway;
-use DigiTickets\DigiTicketsVoucher\Messages\Requests\AuthorizeRequest;
-use DigiTickets\DigiTicketsVoucher\Messages\Requests\PurchaseRequest;
-use DigiTickets\DigiTicketsVoucher\Messages\Requests\RedeemRequest;
-use DigiTickets\DigiTicketsVoucher\Messages\Requests\RefundRequest;
-use DigiTickets\DigiTicketsVoucher\Messages\Requests\UnredeemRequest;
-use DigiTickets\DigiTicketsVoucher\Messages\Requests\ValidateRequest;
-use Omnipay\Common\AbstractGateway;
+use DigiTickets\DigiTicketsVoucher\Messages\Omnipay\AuthorizeRequest;
+use DigiTickets\DigiTicketsVoucher\Messages\Omnipay\PurchaseRequest;
+use DigiTickets\DigiTicketsVoucher\Messages\Omnipay\RefundRequest;
+use DigiTickets\DigiTicketsVoucher\Messages\Voucher\RedeemRequest;
+use DigiTickets\DigiTicketsVoucher\Messages\Voucher\ValidateRequest;
+use DigiTickets\DigiTicketsVoucher\Messages\Voucher\UnredeemRequest;
 
 class DigiTicketsVoucherGateway extends AbstractVoucherGateway
 {
@@ -21,20 +20,19 @@ class DigiTicketsVoucherGateway extends AbstractVoucherGateway
     // These are the standard Omnipay methods, which actually call the methods below.
     public function authorize(array $parameters = array())
     {
-        $parameters['validateRequest'] = $this->validate($parameters);
+        $parameters['gateway'] = $this;
         return $this->createRequest(AuthorizeRequest::class, $parameters);
     }
 
     public function purchase(array $parameters = array())
     {
-        $parameters['validateRequest'] = $this->validate($parameters);
-        $parameters['redeemRequest'] = $this->redeem($parameters);
+        $parameters['gateway'] = $this;
         return $this->createRequest(PurchaseRequest::class, $parameters);
     }
 
     public function refund(array $parameters = array())
     {
-        $parameters['unredeemRequest'] = $this->unredeem($parameters);
+        $parameters['gateway'] = $this;
         return $this->createRequest(RefundRequest::class, $parameters);
     }
 

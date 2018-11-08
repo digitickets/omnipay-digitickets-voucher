@@ -1,6 +1,6 @@
 <?php
 
-namespace DigiTickets\DigiTicketsVoucher\Messages\Requests;
+namespace DigiTickets\DigiTicketsVoucher\Messages\Common;
 
 use Omnipay\Common\Message\AbstractRequest;
 
@@ -19,6 +19,12 @@ abstract class AbstractVoucherRequest extends AbstractRequest
      */
     abstract protected function buildResponse($request, $response);
 
+    /**
+     * Method to return the action for the listener.
+     * @return string
+     */
+    abstract protected function getListenerAction(): string;
+
     public function setGateway($value)
     {
         $this->setParameter('gateway', $value);
@@ -27,6 +33,16 @@ abstract class AbstractVoucherRequest extends AbstractRequest
     public function getGateway()
     {
         return $this->getParameter('gateway');
+    }
+
+    public function setOrderLineRef($value)
+    {
+        $this->setParameter('orderLineRef', $value);
+    }
+
+    public function getOrderLineRef()
+    {
+        return $this->getParameter('orderLineRef');
     }
 
     public function getVoucherCode()
@@ -54,10 +70,10 @@ error_log('[Driver] AbstractVoucherRequest::getData(): This would get the data. 
      */
     public function sendData($data)
     {
-error_log('[Driver] AbstractVoucherRequest::sendData(): This would send the data (to us!)');
+error_log('[Driver] AbstractVoucherRequest::sendData()');
 error_log('[Driver] The data is: '.var_export($data, true));
         $virtualApi = $this->getGateway()->getVirtualApi();
-error_log('[Driver] Instance of virtual API: '.var_export($virtualApi, true));
+//error_log('[Driver] Instance of virtual API: '.print_r($virtualApi, true));
         if ($virtualApi) {
             $response = json_decode($virtualApi->sendRequest($data), true);
 error_log('[Driver] $response is: '.var_export($response, true));
@@ -65,7 +81,7 @@ error_log('[Driver] Got the response; sending it to the listeners');
             // Send all the information to any listeners.
             foreach ($this->getGateway()->getListeners() as $listener) {
 error_log('[Driver] Next listener');
-                $listener->update('requestSend', $response);
+                $listener->update($this->getListenerAction(), $response);
             }
 
         } else {
