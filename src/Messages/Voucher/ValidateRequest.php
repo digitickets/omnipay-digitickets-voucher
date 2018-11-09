@@ -11,7 +11,6 @@ class ValidateRequest extends AbstractVoucherRequest
      */
     protected function buildMessage()
     {
-        // @TODO: I think we need an optional amount in here for when we come to actually redeem the vouchers.
 error_log('ValidateRequest: buildMessage(): Amount: '.$this->getAmount());
         return new ValidateMessage($this->getVoucherCode(), $this->getAmount(), $this->getTransactionId(), $this->getOrderLineRef());
     }

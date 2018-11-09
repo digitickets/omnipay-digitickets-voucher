@@ -5,7 +5,7 @@ namespace DigiTickets\DigiTicketsVoucher\Messages\Omnipay;
 use DigiTickets\DigiTicketsVoucher\Messages\Voucher\UnredeemRequest;
 
 /**
- * This is a wrapper for the unredeem request. The only thing it does differently is return a purchase response rather
+ * This is a wrapper for the unredeem request. The only thing it does differently is return a refund response rather
  * than an unredeem response.
  */
 class RefundRequest extends UnredeemRequest
