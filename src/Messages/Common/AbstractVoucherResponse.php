@@ -25,7 +25,8 @@ abstract class AbstractVoucherResponse extends AbstractResponse implements Vouch
 
 error_log('[Driver] AbstractResponse: $response: '.var_export($response, true));
         $this->successful = (isset($response['redeemable']) && $response['redeemable'] === true) ||
-            (isset($response['redeemed']) && $response['redeemed'] === true);
+            (isset($response['redeemed']) && $response['redeemed'] === true) ||
+            (isset($response['unredeemed']) && $response['unredeemed'] === true);
         if ($this->successful) {
             $this->message = isset($response['status']) ? $response['status'] : null;
         } else {

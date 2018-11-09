@@ -55,6 +55,16 @@ abstract class AbstractVoucherRequest extends AbstractRequest
         return $this->setParameter('voucherCode', $voucherCode);
     }
 
+    public function getOriginalTransactionId()
+    {
+        return $this->getParameter('originalTransactionId');
+    }
+
+    public function setOriginalTransactionId($originalTransactionId)
+    {
+        return $this->setParameter('originalTransactionId', $originalTransactionId);
+    }
+
     /**
      * @return mixed
      */
@@ -73,7 +83,6 @@ error_log('[Driver] AbstractVoucherRequest::getData(): This would get the data. 
 error_log('[Driver] AbstractVoucherRequest::sendData()');
 error_log('[Driver] The data is: '.var_export($data, true));
         $virtualApi = $this->getGateway()->getVirtualApi();
-//error_log('[Driver] Instance of virtual API: '.print_r($virtualApi, true));
         if ($virtualApi) {
             $response = json_decode($virtualApi->sendRequest($data), true);
 error_log('[Driver] $response is: '.var_export($response, true));

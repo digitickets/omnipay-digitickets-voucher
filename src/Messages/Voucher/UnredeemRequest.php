@@ -11,7 +11,7 @@ class UnredeemRequest extends AbstractVoucherRequest
      */
     protected function buildMessage()
     {
-        return new UnredeemMessage($this->getTransactionId(), $this->getVoucherCode(), $this->getAmount(), $this->getTransactionId(), $this->getOrderLineRef());
+        return new UnredeemMessage($this->getTransactionReference(), $this->getVoucherCode(), $this->getOriginalTransactionId());
     }
 
     /**
