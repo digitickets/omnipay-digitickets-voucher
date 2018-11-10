@@ -13,7 +13,7 @@ use Omnipay\Common\AbstractGateway;
 abstract class AbstractVoucherGateway extends AbstractGateway
 {
     /**
-     * @var Listener[]
+     * @var ListenerInterface[]
      */
     private $listeners = [];
 

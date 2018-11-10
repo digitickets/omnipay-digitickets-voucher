@@ -2,7 +2,7 @@
 
 namespace DigiTickets\DigiTicketsVoucher\AbstractVoucher;
 
-interface Listener
+interface ListenerInterface
 {
     public function update($action, $data);
 }
