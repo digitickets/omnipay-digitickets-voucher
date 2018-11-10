@@ -2,8 +2,8 @@
 
 namespace DigiTickets\DigiTicketsVoucher\Messages\Common;
 
-use DigiTickets\DigiTicketsVoucher\AbstractVoucher\AbstractMessage;
-use DigiTickets\DigiTicketsVoucher\AbstractVoucher\VoucherResponseInterface;
+use DigiTickets\OmnipayAbstractVoucher\AbstractMessage;
+use DigiTickets\OmnipayAbstractVoucher\VoucherResponseInterface;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 

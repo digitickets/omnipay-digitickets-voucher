@@ -2,7 +2,7 @@
 
 namespace DigiTickets\DigiTicketsVoucher\Messages\Voucher;
 
-use DigiTickets\DigiTicketsVoucher\AbstractVoucher\AbstractMessage;
+use DigiTickets\OmnipayAbstractVoucher\AbstractMessage;
 
 class UnredeemMessage extends AbstractMessage
 {

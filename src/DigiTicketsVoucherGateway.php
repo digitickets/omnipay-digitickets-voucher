@@ -2,7 +2,7 @@
 
 namespace DigiTickets\DigiTicketsVoucher;
 
-use DigiTickets\DigiTicketsVoucher\AbstractVoucher\AbstractVoucherGateway;
+use DigiTickets\OmnipayAbstractVoucher\AbstractVoucherGateway;
 use DigiTickets\DigiTicketsVoucher\Messages\Omnipay\AuthorizeRequest;
 use DigiTickets\DigiTicketsVoucher\Messages\Omnipay\PurchaseRequest;
 use DigiTickets\DigiTicketsVoucher\Messages\Omnipay\RefundRequest;
