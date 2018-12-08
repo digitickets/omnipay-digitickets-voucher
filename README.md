@@ -31,11 +31,13 @@ And run composer to update your dependencies:
 
 ## What's Included
 
-This driver handles transactions being processed by DigiTickets vouchers.
+This driver handles transactions being processed by DigiTickets vouchers, ie voucher redemption.
+
+It also handle refunds (voucher unredemption).
 
 ## What's Not Included
 
-It does not (currently) handle refunds.
+N/A
 
 ## Basic Usage
 
