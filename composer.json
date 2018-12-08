@@ -29,7 +29,7 @@
     }
   },
   "require": {
-    "digitickets/omnipay-abstract-voucher": "@dev",
+    "digitickets/omnipay-abstract-voucher": "^1.0",
     "php": "^7",
     "symfony/event-dispatcher": "^2.8"
   },
