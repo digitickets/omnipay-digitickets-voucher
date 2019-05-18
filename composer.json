@@ -43,5 +43,5 @@
     "run-fixer": "vendor/bin/php-cs-fixer fix",
     "run-tests": "vendor/bin/phpunit"
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "dev"
 }
