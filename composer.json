@@ -29,7 +29,7 @@
     }
   },
   "require": {
-    "digitickets/omnipay-abstract-voucher": "^1.1.0-beta",
+    "digitickets/omnipay-abstract-voucher": "^2.0",
     "php": "^7",
     "symfony/event-dispatcher": "^2.8"
   },
@@ -42,6 +42,5 @@
     "run-sa": "vendor/bin/phpstan analyse --ansi --no-progress -c phpstan.neon -l 4 src tests",
     "run-fixer": "vendor/bin/php-cs-fixer fix",
     "run-tests": "vendor/bin/phpunit"
-  },
-  "minimum-stability": "dev"
+  }
 }
