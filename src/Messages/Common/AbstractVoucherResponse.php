@@ -2,6 +2,7 @@
 
 namespace DigiTickets\DigiTicketsVoucher\Messages\Common;
 
+use DigiTickets\DigiTicketsVoucher\DigiTicketsVoucherGateway;
 use DigiTickets\OmnipayAbstractVoucher\AbstractMessage;
 use DigiTickets\OmnipayAbstractVoucher\VoucherResponseInterface;
 use Omnipay\Common\Message\AbstractResponse;
@@ -23,7 +24,7 @@ abstract class AbstractVoucherResponse extends AbstractResponse implements Vouch
     {
         parent::__construct($request, $response);
 
-error_log('[Driver] AbstractResponse: $response: '.var_export($response, true));
+        $this->getGateway()->log('AbstractResponse: $response', ['vars'=>var_export($response, true)]);
         $this->successful = (isset($response['success']) && $response['success'] === true);
         if ($this->successful) {
             $this->message = isset($response['status']) ? $response['status'] : null;
@@ -39,8 +40,20 @@ error_log('[Driver] AbstractResponse: $response: '.var_export($response, true));
 
     public function getMessage()
     {
-error_log('[Driver] AbstractResponse getMessage() being called');
         return $this->message;
+    }
+
+    public function setGateway($value)
+    {
+        $this->setParameter('gateway', $value);
+    }
+
+    /**
+     * @return DigiTicketsVoucherGateway
+     */
+    public function getGateway()
+    {
+        return $this->getParameter('gateway');
     }
 
     /**

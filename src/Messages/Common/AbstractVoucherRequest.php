@@ -2,6 +2,7 @@
 
 namespace DigiTickets\DigiTicketsVoucher\Messages\Common;
 
+use DigiTickets\DigiTicketsVoucher\DigiTicketsVoucherGateway;
 use Omnipay\Common\Message\AbstractRequest;
 
 abstract class AbstractVoucherRequest extends AbstractRequest
@@ -30,6 +31,9 @@ abstract class AbstractVoucherRequest extends AbstractRequest
         $this->setParameter('gateway', $value);
     }
 
+    /**
+     * @return DigiTicketsVoucherGateway
+     */
     public function getGateway()
     {
         return $this->getParameter('gateway');
@@ -70,7 +74,6 @@ abstract class AbstractVoucherRequest extends AbstractRequest
      */
     public function getData()
     {
-error_log('[Driver] AbstractVoucherRequest::getData(): This would get the data. This would validate the voucher code in the appropriate client');
         return $this->buildMessage();
     }
 
@@ -80,20 +83,17 @@ error_log('[Driver] AbstractVoucherRequest::getData(): This would get the data. 
      */
     public function sendData($data)
     {
-error_log('[Driver] AbstractVoucherRequest::sendData()');
-error_log('[Driver] The data is: '.var_export($data, true));
+        $this->getGateway()->log('AbstractVoucherRequest::sendData.', ["props"=>$data]);
         $virtualApi = $this->getGateway()->getVirtualApi();
         if ($virtualApi) {
             $response = json_decode($virtualApi->sendRequest($data), true);
-error_log('[Driver] $response is: '.var_export($response, true));
-error_log('[Driver] Got the response; sending it to the listeners');
+            $this->getGateway()->log('$response from virtualapi decoded', ["response"=>var_export($response, true)]);
             // Send all the information to any listeners.
             foreach ($this->getGateway()->getListeners() as $listener) {
-error_log('[Driver] Next listener');
                 $listener->update($this->getListenerAction(), $response);
             }
-
         } else {
+            $this->getGateway()->log('Missing $virtualApi');
             // Error @TODO: Build an appropriate response
         }
 
