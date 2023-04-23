@@ -24,7 +24,6 @@ abstract class AbstractVoucherResponse extends AbstractResponse implements Vouch
     {
         parent::__construct($request, $response);
 
-        $this->getGateway()->log('AbstractResponse: $response', ['vars'=>var_export($response, true)]);
         $this->successful = (isset($response['success']) && $response['success'] === true);
         if ($this->successful) {
             $this->message = isset($response['status']) ? $response['status'] : null;
@@ -41,19 +40,6 @@ abstract class AbstractVoucherResponse extends AbstractResponse implements Vouch
     public function getMessage()
     {
         return $this->message;
-    }
-
-    public function setGateway($value)
-    {
-        $this->setParameter('gateway', $value);
-    }
-
-    /**
-     * @return DigiTicketsVoucherGateway
-     */
-    public function getGateway()
-    {
-        return $this->getParameter('gateway');
     }
 
     /**

@@ -15,6 +15,9 @@ class DigiTicketsVoucherGateway extends AbstractVoucherGateway
     /** @var callable*/
     private $logger = null;
 
+    /** @var string */
+    private $uniqueLogKey = '';
+
     public function getName()
     {
         return 'DigiTickets Gift Vouchers';
@@ -90,11 +93,13 @@ class DigiTicketsVoucherGateway extends AbstractVoucherGateway
     public function registerLoggerCallback(callable $callback)
     {
         $this->logger = $callback;
+        $this->uniqueLogKey = uniqid();
     }
 
     public function log(string $message, array $data = null)
     {
         if (is_callable($this->logger)) {
+            $message = '[DTVoucher-'.$this->uniqueLogKey.'] '.$message;
             ($this->logger)($message, $data);
         }
     }
