@@ -12,8 +12,8 @@ use DigiTickets\DigiTicketsVoucher\Messages\Voucher\UnredeemRequest;
 
 class DigiTicketsVoucherGateway extends AbstractVoucherGateway
 {
-    /** @var callable*/
-    private $logger = null;
+    /** @var callable|null */
+    private $logger;
 
     /** @var string */
     private $uniqueLogKey = '';
