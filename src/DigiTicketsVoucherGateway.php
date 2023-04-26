@@ -12,6 +12,12 @@ use DigiTickets\DigiTicketsVoucher\Messages\Voucher\UnredeemRequest;
 
 class DigiTicketsVoucherGateway extends AbstractVoucherGateway
 {
+    /** @var callable|null */
+    private $logger;
+
+    /** @var string */
+    private $uniqueLogKey = '';
+
     public function getName()
     {
         return 'DigiTickets Gift Vouchers';
@@ -47,8 +53,6 @@ class DigiTicketsVoucherGateway extends AbstractVoucherGateway
      */
     public function validate(array $parameters = array())
     {
-error_log('[Driver] This is validate');
-error_log('[Driver] Class name is: '.ValidateRequest::class);
         return $this->createRequest(ValidateRequest::class, $parameters);
     }
 
@@ -72,13 +76,31 @@ error_log('[Driver] Class name is: '.ValidateRequest::class);
 
     public function setVirtualApi($value)
     {
-error_log('[Driver] setVirtualApi is being called');
         $this->setParameter('virtualApi', $value);
     }
 
     public function getVirtualApi()
     {
-error_log('[Driver] getVirtualApi is being called');
         return $this->getParameter('virtualApi');
+    }
+
+    /**
+     * Pass in a callback, with properties of type (string $message, array $data=null)
+     * @param callable $callback
+     *
+     * @return void
+     */
+    public function registerLoggerCallback(callable $callback)
+    {
+        $this->logger = $callback;
+        $this->uniqueLogKey = uniqid();
+    }
+
+    public function log(string $message, array $data = null)
+    {
+        if (is_callable($this->logger)) {
+            $message = '[DTVoucher-'.$this->uniqueLogKey.'] '.$message;
+            ($this->logger)($message, $data);
+        }
     }
 }

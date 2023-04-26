@@ -44,6 +44,19 @@ N/A
 For general Omnipay usage instructions, please see the main [Omnipay](https://github.com/omnipay/omnipay)
 repository.
 
+You may add debug logging by attaching a callback like so:
+```php
+$gateway->registerLoggerCallback(
+    function ($msg, $data) use ($logger) {
+        try {
+            $logger->info($msg, ['data' => $data]);
+        } catch (\Throwable $ex) {
+            error_log($ex);
+        }
+    }
+);
+```
+
 ## Support
 
 If you are having general issues with Omnipay, we suggest posting on

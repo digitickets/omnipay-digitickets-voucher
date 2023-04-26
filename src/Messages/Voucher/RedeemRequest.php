@@ -11,7 +11,7 @@ class RedeemRequest extends AbstractVoucherRequest
      */
     protected function buildMessage()
     {
-error_log('RedeemRequest::buildMessage(): Amount: '.$this->getAmount());
+        $this->getGateway()->log('RedeemRequest::buildMessage(): Amount: '.$this->getAmount());
         return new RedeemMessage($this->getVoucherCode(), $this->getAmount(), $this->getTransactionId(), $this->getOrderLineRef());
     }
 

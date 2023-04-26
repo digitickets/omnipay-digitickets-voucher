@@ -11,7 +11,7 @@ class AuthorizeRequest extends AbstractVoucherRequest
      */
     protected function buildMessage()
     {
-error_log('AuthorizeRequest::buildMessage(): Amount: '.$this->getAmount());
+        $this->getGateway()->log('AuthorizeRequest::buildMessage(): Amount: '.$this->getAmount());
         return new AuthorizeMessage($this->getVoucherCode(), $this->getAmount(), $this->getTransactionId(), $this->getOrderLineRef());
     }
 
@@ -22,7 +22,7 @@ error_log('AuthorizeRequest::buildMessage(): Amount: '.$this->getAmount());
      */
     protected function buildResponse($request, $response)
     {
-error_log('AuthorizeRequest::buildResponse(): response: '.var_export($response, true));
+        $this->getGateway()->log('AuthorizeRequest::buildResponse', ['vars'=>var_export($response, true)]);
         return new AuthorizeResponse($request, $response);
     }
 

@@ -11,7 +11,7 @@ class ValidateRequest extends AbstractVoucherRequest
      */
     protected function buildMessage()
     {
-error_log('ValidateRequest: buildMessage(): Amount: '.$this->getAmount());
+        $this->getGateway()->log('ValidateRequest: buildMessage(): Amount: '.$this->getAmount());
         return new ValidateMessage($this->getVoucherCode(), $this->getAmount(), $this->getTransactionId(), $this->getOrderLineRef());
     }
 

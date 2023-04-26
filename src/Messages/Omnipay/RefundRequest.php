@@ -17,7 +17,7 @@ class RefundRequest extends UnredeemRequest
      */
     protected function buildResponse($request, $response)
     {
-error_log('RefundRequest::buildResponse(): response: '.var_export($response, true));
+        $this->getGateway()->log('RefundRequest::buildResponse()', ["vars"=> var_export($response, true)]);
         return new RefundResponse($request, $response);
     }
 }

@@ -17,7 +17,7 @@ class PurchaseRequest extends RedeemRequest
      */
     protected function buildResponse($request, $response)
     {
-error_log('PurchaseRequest::buildResponse(): response: '.var_export($response, true));
+        $this->getGateway()->log('PurchaseRequest::buildResponse()', ["vars"=> var_export($response, true)]);
         return new PurchaseResponse($request, $response);
     }
 }
