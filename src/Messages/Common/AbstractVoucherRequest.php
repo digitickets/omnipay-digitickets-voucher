@@ -93,7 +93,7 @@ abstract class AbstractVoucherRequest extends AbstractRequest
                 $listener->update($this->getListenerAction(), $response);
             }
         } else {
-            $this->getGateway()->log('Missing $virtualApi');
+            $this->getGateway()->log('Missing "virtualApi" gateway configuration entry');
             // Error @TODO: Build an appropriate response
         }
 
